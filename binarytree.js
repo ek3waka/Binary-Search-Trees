@@ -8,7 +8,11 @@ class BinaryTree {
     }
     buildTree(array) {
         const sortedArray = this.#sortArray(array)
-        this.tree.value  = this.#findRootElement(sortedArray)
+        this.tree.root = new TreeNode(this.#divideArray(sortedArray).node, 
+                            this.#divideArray(sortedArray).left,
+                            this.#divideArray(sortedArray).right)
+
+        
         
     }
     insert(value) {
@@ -49,16 +53,27 @@ class BinaryTree {
       console.log(sortedArray)
       return sortedArray
     }
-    #findRootElement(preparedArray) {
-        let rootElement
-        if (preparedArray.length % 2 == 1) {
-            rootElement = preparedArray[(preparedArray.length-1)/2]
+    #findCentralElement(array) {
+        let centralElement
+        if (array.length % 2 == 1) {
+            centralElement = array[(array.length-1)/2]
         }
         else {
-            rootElement = preparedArray[preparedArray.length/2-1]
+            centralElement = array[array.length/2]
         }
-        console.log(rootElement)
-        return rootElement
+        return centralElement
+    }
+    #divideArray(array) {
+        let centralElement = this.#findCentralElement(array)
+        let leftSide = array.slice(0, array.indexOf(centralElement))
+        let rightSide = array.slice(array.indexOf(centralElement)+1)
+        let divided = {
+            left: leftSide,
+            node: centralElement,
+            right: rightSide,
+        }
+        return divided
+        
     }
 }
 
