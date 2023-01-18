@@ -6,7 +6,7 @@ const generateArray = (length, max) => (
       .map(() => Math.round(Math.random() * max))
   )
 
-const array = generateArray(9, 25) 
+const array = generateArray(20, 45) 
 console.log(array)
 
 const binaryTree = new BinaryTree()
@@ -14,3 +14,9 @@ const binaryTree = new BinaryTree()
 binaryTree.buildTree(array)
 
 console.log(binaryTree)
+
+/* const test = [4, 1]
+
+const testTree = new BinaryTree()
+testTree.buildTree(test)
+console.log(testTree) */

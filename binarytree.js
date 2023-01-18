@@ -9,10 +9,18 @@ class BinaryTree {
     buildTree(array) {
         const sortedArray = this.#sortArray(array)
         this.tree.root = new TreeNode(this.#divideArray(sortedArray).node, 
-                            this.#divideArray(sortedArray).left,
-                            this.#divideArray(sortedArray).right)
-
-        
+                            this.#divideArray(sortedArray).leftChild,
+                            this.#divideArray(sortedArray).rightChild)
+        let currentArray = this.tree.root.leftChild
+        let currentNode = this.tree.root
+        while (currentArray.length > 1) {
+            const newNode = new TreeNode(this.#divideArray(currentArray).node, 
+                            this.#divideArray(currentArray).leftChild,
+                            this.#divideArray(currentArray).rightChild)
+            currentNode.leftChild = newNode
+            currentNode = newNode
+            currentArray = currentNode.leftChild
+        }
         
     }
     insert(value) {
@@ -64,14 +72,26 @@ class BinaryTree {
         return centralElement
     }
     #divideArray(array) {
+        let divided = {
+                leftChild: null,
+                node: null,
+                rightChild: null,
+        }
+        if (array.length == 1) {
+            divided.node = array[0]
+        }
         let centralElement = this.#findCentralElement(array)
         let leftSide = array.slice(0, array.indexOf(centralElement))
         let rightSide = array.slice(array.indexOf(centralElement)+1)
-        let divided = {
-            left: leftSide,
-            node: centralElement,
-            right: rightSide,
+
+        divided.leftChild = leftSide
+        divided.node = centralElement
+        divided.rightChild = rightSide
+
+        if (array.length == 2) {
+            divided.rightChild = null
         }
+        
         return divided
         
     }
