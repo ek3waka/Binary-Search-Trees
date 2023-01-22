@@ -8,20 +8,8 @@ class BinaryTree {
     }
     buildTree(array) {
         const sortedArray = this.#sortArray(array)
-        this.tree.root = new TreeNode(this.#divideArray(sortedArray).node, 
-                            this.#divideArray(sortedArray).leftChild,
-                            this.#divideArray(sortedArray).rightChild)
-        let currentArray = this.tree.root.leftChild
-        let currentNode = this.tree.root
-        while (currentArray.length > 1) {
-            const newNode = new TreeNode(this.#divideArray(currentArray).node, 
-                            this.#divideArray(currentArray).leftChild,
-                            this.#divideArray(currentArray).rightChild)
-            currentNode.leftChild = newNode
-            currentNode = newNode
-            currentArray = currentNode.leftChild
-        }
-        
+        this.tree = this.#createBST(sortedArray, 0, sortedArray.length-1)
+        return this.tree    
     }
     insert(value) {
 
@@ -71,29 +59,31 @@ class BinaryTree {
         }
         return centralElement
     }
-    #divideArray(array) {
-        let divided = {
-                leftChild: null,
-                node: null,
-                rightChild: null,
-        }
-        if (array.length == 1) {
-            divided.node = array[0]
-        }
-        let centralElement = this.#findCentralElement(array)
-        let leftSide = array.slice(0, array.indexOf(centralElement))
-        let rightSide = array.slice(array.indexOf(centralElement)+1)
 
-        divided.leftChild = leftSide
-        divided.node = centralElement
-        divided.rightChild = rightSide
-
-        if (array.length == 2) {
-            divided.rightChild = null
+    #createBST(array, start, end) {
+        if (start>end) return null
+        let mid
+        if ((end - start) % 2 == 1) {
+            mid = (start + end + 1) / 2 
+            }
+        else {
+            mid = (start + end) / 2
         }
-        
-        return divided
-        
+        const root = new TreeNode(array[mid])
+
+        root.leftChild = this.#createBST(array, start, mid-1)
+        root.rightChild = this.#createBST(array, mid+1, end)
+        return root
+    }
+
+    prettyPrint(node, prefix = '', isLeft = true) {
+        if (node.rightChild !== null) {
+          this.prettyPrint(node.rightChild, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+        if (node.leftChild !== null) {
+          this.prettyPrint(node.leftChild, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+        }
     }
 }
 

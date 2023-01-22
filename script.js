@@ -13,10 +13,6 @@ const binaryTree = new BinaryTree()
 
 binaryTree.buildTree(array)
 
-console.log(binaryTree)
 
-/* const test = [4, 1]
 
-const testTree = new BinaryTree()
-testTree.buildTree(test)
-console.log(testTree) */
+binaryTree.prettyPrint(binaryTree.tree)
