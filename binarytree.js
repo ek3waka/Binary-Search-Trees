@@ -18,7 +18,7 @@ class BinaryTree {
 
     }
     find(value) {
-
+       this.#findNode(this.tree, value)
     }
     levelOrder(callbackFunction) {
 
@@ -49,15 +49,15 @@ class BinaryTree {
       console.log(sortedArray)
       return sortedArray
     }
-    #findCentralElement(array) {
-        let centralElement
-        if (array.length % 2 == 1) {
-            centralElement = array[(array.length-1)/2]
-        }
-        else {
-            centralElement = array[array.length/2]
-        }
-        return centralElement
+    #findNode(node, value) {
+        if (node.value && (value === node.value)) return node
+        else if ((value > node.value) && node.rightChild) {
+            this.#findNode(node.rightChild, value)
+            return false
+        } else if ((value < node.value) && node.leftChild) {
+            this.#findNode(node.leftChild, value)
+            return false
+        } else return console.log('Not found')
     }
 
     #createBST(array, start, end) {

@@ -16,3 +16,5 @@ binaryTree.buildTree(array)
 
 
 binaryTree.prettyPrint(binaryTree.tree)
+
+binaryTree.find(4)

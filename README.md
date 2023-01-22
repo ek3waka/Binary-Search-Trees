@@ -8,13 +8,13 @@ and turns it into a balanced binary tree full of Node objects appropriately plac
 The buildTree function should return the level-0 root node. +
 
 Tip: If you would like to visualize your binary search tree, here is a prettyPrint() function that 
-will console.log your tree in a structured format. This function will expect to receive the root of your tree as the value for the node parameter.
+will console.log your tree in a structured format. This function will expect to receive the root of your tree as the value for the node parameter. +
 
 4. Write an insert and delete functions which accepts a value to insert/delete 
 (you’ll have to deal with several cases for delete such as when a node has children or not). 
 If you need additional resources, check out these two articles on inserting and deleting, or this video with several visual examples.
 
-5. Write a find function which accepts a value and returns the node with the given value.
+5. Write a find function which accepts a value and returns the node with the given value. +
 
 6. Write a levelOrder function which accepts another function as a parameter. 
 levelOrder should traverse the tree in breadth-first level order and provide 
