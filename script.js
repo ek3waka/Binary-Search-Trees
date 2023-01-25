@@ -17,4 +17,9 @@ binaryTree.buildTree(array)
 
 binaryTree.prettyPrint(binaryTree.tree)
 
-binaryTree.find(4)
+//binaryTree.find(4)
+
+binaryTree.insert(13)
+binaryTree.insert(100)
+console.log(binaryTree)
+binaryTree.prettyPrint(binaryTree.tree)

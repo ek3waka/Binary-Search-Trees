@@ -12,13 +12,13 @@ class BinaryTree {
         return this.tree    
     }
     insert(value) {
-
+        return this.#insertNode(this.tree, value)
     }
     delete(value) {
 
     }
     find(value) {
-       this.#findNode(this.tree, value)
+       return this.#findNode(this.tree, value)
     }
     levelOrder(callbackFunction) {
 
@@ -50,7 +50,7 @@ class BinaryTree {
       return sortedArray
     }
     #findNode(node, value) {
-        if (node.value && (value === node.value)) return node
+        if (node.value && (value === node.value)) return console.log(node)
         else if ((value > node.value) && node.rightChild) {
             this.#findNode(node.rightChild, value)
             return false
@@ -84,6 +84,20 @@ class BinaryTree {
         if (node.leftChild !== null) {
           this.prettyPrint(node.leftChild, `${prefix}${isLeft ? '    ' : '│   '}`, true);
         }
+    }
+
+    #insertNode(node, value) {
+        if (node == null) {
+            node = new TreeNode(value)
+            return node
+        }
+        if (value > node.value) {
+            node.rightChild = this.#insertNode(node.rightChild, value)
+            
+        } else if (value < node.value) {
+            node.leftChild = this.#insertNode(node.leftChild, value)
+ 
+        } return node
     }
 }
 
