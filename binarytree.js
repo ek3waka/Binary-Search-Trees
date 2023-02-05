@@ -15,7 +15,7 @@ class BinaryTree {
         return this.#insertNode(this.tree, value)
     }
     delete(value) {
-
+        return this.#deleteNode(this.tree, value)
     }
     find(value) {
        return this.#findNode(this.tree, value)
@@ -50,7 +50,7 @@ class BinaryTree {
       return sortedArray
     }
     #findNode(node, value) {
-        if (node.value && (value === node.value)) return console.log(node)
+        if (node.value && (value === node.value)) return node
         else if ((value > node.value) && node.rightChild) {
             this.#findNode(node.rightChild, value)
             return false
@@ -76,18 +76,10 @@ class BinaryTree {
         return root
     }
 
-    prettyPrint(node, prefix = '', isLeft = true) {
-        if (node.rightChild !== null) {
-          this.prettyPrint(node.rightChild, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-        }
-        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
-        if (node.leftChild !== null) {
-          this.prettyPrint(node.leftChild, `${prefix}${isLeft ? '    ' : '│   '}`, true);
-        }
-    }
+
 
     #insertNode(node, value) {
-        if (node == null) {
+        if (node === null) {
             node = new TreeNode(value)
             return node
         }
@@ -98,6 +90,46 @@ class BinaryTree {
             node.leftChild = this.#insertNode(node.leftChild, value)
  
         } return node
+    }
+
+    #deleteNode(node, value) {
+        if (node.rightChild.value === value) {
+            if (!node.rightChild.rightChild && !node.rightChild.leftChild) {
+                node.rightChild == null
+            } else if (node.rightChild.leftChild && !node.rightChild.rightChild){
+                node.rightChild = node.rightChild.leftChild
+            } else if (!node.rightChild.leftChild && node.rightChild.rightChild) {
+                node.rightChild = node.rightChild.rightChild
+            }
+        }
+        if (node.leftChild.value === value) {
+            if (!node.leftChild.rightChild && !node.leftChild.leftChild) {
+                node.leftChild == null
+            } else if (node.leftChild.leftChild && !node.leftChild.rightChild){
+                node.leftChild = node.leftChild.leftChild
+            } else if (!node.leftChild.leftChild && node.leftChild.rightChild) {
+                node.leftChild = node.leftChild.rightChild
+            }
+        }
+
+        if ((value > node.value) && node.rightChild) {
+            this.#deleteNode(node.rightChild, value)
+            return node
+        } else if ((value < node.value) && node.leftChild) {
+            this.#deleteNode(node.leftChild, value)
+            return node
+        } return node
+        
+    }
+    
+    prettyPrint(node, prefix = '', isLeft = true) {
+        if (node.rightChild !== null) {
+          this.prettyPrint(node.rightChild, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+        if (node.leftChild !== null) {
+          this.prettyPrint(node.leftChild, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+        }
     }
 }
 
